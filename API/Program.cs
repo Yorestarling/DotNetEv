@@ -1,3 +1,5 @@
+using Application.Client;
+using Application.HttpClientService;
 using Application.Users;
 using Common.AppSettingsConfig;
 using Common.Dtos;
@@ -5,7 +7,7 @@ using EF.Context;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 using Security.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +20,11 @@ APIServiceConfiguration.RegisterServices(builder.Services);
 SwaggerExtensions.ConfigureSwagger(builder.Services);
 JwtExtensions.ConfigureAuthentication(builder.Services, builder.Configuration);
 
+builder.Services.AddHttpClient();
+
 builder.Services.Configure<General>(builder.Configuration.GetSection("General"));
 builder.Services.AddScoped<IManageUser, ManageUser>();
+builder.Services.AddScoped<IManageClient, ManageClient>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -32,20 +37,14 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreationUserValidation>();
 
 builder.Services.AddFluentValidationAutoValidation();
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseSwagger(c =>
-{
-    c.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi2_0;
-});
-
+app.UseSwagger();
 app.UseSwaggerUI();
 
 

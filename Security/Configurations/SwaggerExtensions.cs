@@ -20,6 +20,7 @@ namespace Security.Configurations
                     Email = "yorestarlingdev@hotmail.com"
                 }
             };
+            services.AddEndpointsApiExplorer();
 
             services.AddSwaggerGen(i =>
             {
@@ -34,8 +35,10 @@ namespace Security.Configurations
                     i.IncludeXmlComments(xmlFile);
                 }
 
-                 i.AddSwaggerSecurity();
+                i.AddSwaggerSecurity();
             });
+
+
         }
 
 
@@ -47,11 +50,11 @@ namespace Security.Configurations
         private static SwaggerGenOptions AddSwaggerSecurity(this SwaggerGenOptions options)
         {
 
-            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
                 Type = SecuritySchemeType.Http,
-                Scheme = "Bearer",
+                Scheme = "bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
                 Description = "Favor colocar el JWT Token"
@@ -65,7 +68,7 @@ namespace Security.Configurations
                         Reference = new OpenApiReference
                         {
                             Type = ReferenceType.SecurityScheme,
-                            Id="Bearer"
+                            Id="bearer"
 
                         }
                     },
