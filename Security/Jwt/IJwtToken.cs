@@ -1,9 +1,10 @@
 ﻿using Common.Dtos;
+using Common.Models;
 
 namespace Security.Jwt
 {
     public interface IJwtToken
     {
-        object GenerateJWT(UsersDto users);
+        object GenerateJWT(User users);
     }
 }

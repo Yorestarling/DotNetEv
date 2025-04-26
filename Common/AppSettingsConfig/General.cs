@@ -9,6 +9,7 @@ namespace Common.AppSettingsConfig
     public class General
     {
         public JWTConfigurations? JWTConfigurations { get; set; }
+        public RegularExpression? RegularExpression { get; set; }
     }
 
     public class JWTConfigurations
@@ -16,6 +17,12 @@ namespace Common.AppSettingsConfig
         public int ExpirationInMinutes { get; set; }
         public string? SecretKey { get; set; }
         public bool ValidateAudience { get; set; }
+    }
+
+    public class RegularExpression
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
     }
 
 }

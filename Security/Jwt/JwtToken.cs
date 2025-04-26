@@ -1,5 +1,6 @@
 ﻿using Common.AppSettingsConfig;
 using Common.Dtos;
+using Common.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +13,7 @@ namespace Security.Jwt
     {
         private readonly General _settings = options.Value;
 
-        public object GenerateJWT(UsersDto user)
+        public object GenerateJWT(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = GetTokenDescriptor(user);
@@ -22,11 +23,11 @@ namespace Security.Jwt
         }
 
         public byte[] GetBytesJWTKey() => Encoding.ASCII.GetBytes(_settings?.JWTConfigurations?.SecretKey!);
-        public SecurityTokenDescriptor GetTokenDescriptor(UsersDto user) => new()
+        public SecurityTokenDescriptor GetTokenDescriptor(User user) => new()
         {
             Subject = new ClaimsIdentity([
-                      new Claim(JwtRegisteredClaimNames.GivenName, user.Username),
-                      new Claim(ClaimTypes.Name,user.Username),
+                      new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
+                      new Claim(ClaimTypes.Name,user.UserName),
                       new Claim(ClaimTypes.Email,user.Email!)
             ]),
             Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt16(_settings?.JWTConfigurations?.ExpirationInMinutes!)),

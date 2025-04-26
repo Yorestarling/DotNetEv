@@ -5,22 +5,19 @@ using System.Text.RegularExpressions;
 
 namespace Common.Dtos
 {
-    public class UsersDto
+    public class ValidateUserDto
     {
-        public string? Name { get; set; }
-        public required string Username { get; set; }
         public string? Email { get; set; }
-        public required string Password { get; set; }
+        public string?
+            Password { get; set; }
+
     }
 
-    public class CreationUserValidation : AbstractValidator<UsersDto>
+    public class ValidateUserValidation : AbstractValidator<ValidateUserDto>
     {
-        public CreationUserValidation(IOptions<General> options)
+        public ValidateUserValidation(IOptions<General> options)
         {
 
-            RuleFor(x => x.Username)
-                .NotEmpty()
-                .WithMessage("El campo de nombre no puede estar vacío.");
 
             RuleFor(x => x.Email)
                 .NotEmpty()

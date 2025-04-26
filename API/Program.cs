@@ -5,6 +5,7 @@ using EF.Context;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Security.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ options.UseInMemoryDatabase("DotNetDB"));
 
 APIServiceConfiguration.RegisterServices(builder.Services);
 SwaggerExtensions.ConfigureSwagger(builder.Services);
+JwtExtensions.ConfigureAuthentication(builder.Services, builder.Configuration);
 
 builder.Services.Configure<General>(builder.Configuration.GetSection("General"));
 builder.Services.AddScoped<IManageUser, ManageUser>();
@@ -24,7 +26,10 @@ builder.Services.AddControllers();
 
 //ADD FluentValidation
 builder.Services.AddScoped<IValidator<UsersDto>, CreationUserValidation>();
+builder.Services.AddScoped<IValidator<ValidateUserDto>, ValidateUserValidation>();
+
 builder.Services.AddValidatorsFromAssemblyContaining<CreationUserValidation>();
+
 builder.Services.AddFluentValidationAutoValidation();
 
 
@@ -43,6 +48,8 @@ app.UseSwagger(c =>
 
 app.UseSwaggerUI();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

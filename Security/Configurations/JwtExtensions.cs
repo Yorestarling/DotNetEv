@@ -45,6 +45,7 @@ namespace Security.Configurations
                             IsSuccess = false,
                             Message = "Debe estar autenticado para ejecutar este endpoint, revisar su TOKEN de autenticación.",
                             Data = null,
+                            StatusCode = System.Net.HttpStatusCode.Unauthorized
                         });
                     }
                 };
