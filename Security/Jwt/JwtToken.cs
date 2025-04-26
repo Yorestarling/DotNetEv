@@ -1,5 +1,4 @@
 ﻿using Common.AppSettingsConfig;
-using Common.Dtos;
 using Common.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +12,7 @@ namespace Security.Jwt
     {
         private readonly General _settings = options.Value;
 
+        //Basic Method to GenerateToken
         public object GenerateJWT(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -22,7 +22,10 @@ namespace Security.Jwt
             return tokenValue;
         }
 
+        //Creation de BytesKey
         public byte[] GetBytesJWTKey() => Encoding.ASCII.GetBytes(_settings?.JWTConfigurations?.SecretKey!);
+        
+        //Adding Claims in JwtInformation and expiration token date
         public SecurityTokenDescriptor GetTokenDescriptor(User user) => new()
         {
             Subject = new ClaimsIdentity([

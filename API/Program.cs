@@ -32,6 +32,7 @@ builder.Services.AddControllers();
 //ADD FluentValidation
 builder.Services.AddScoped<IValidator<UsersDto>, CreationUserValidation>();
 builder.Services.AddScoped<IValidator<ValidateUserDto>, ValidateUserValidation>();
+builder.Services.AddScoped<IValidator<JsonHolderDto>, JsonHolderValidation>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreationUserValidation>();
 

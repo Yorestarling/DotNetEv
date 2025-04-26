@@ -13,10 +13,17 @@ namespace Application.Users
         private readonly DotNetDbContext _context = context;
         private readonly IJwtToken _tokenService = tokenService;
 
+        /// <summary>
+        /// Implementation method to create User
+        /// </summary>
+        /// <param name="usersDto"></param>
+        /// <returns></returns>
         public async Task<ResponseDto<object>> CreateUser(UsersDto usersDto)
         {
             try
             {
+
+                //validate if user exist
                 bool UserExist = await _context.Users
                     .AnyAsync(u => u.Email == usersDto.Email);
 
@@ -24,6 +31,8 @@ namespace Application.Users
                     return new ResponseDto<object>()
                     { IsSuccess = false, Message = $"El correo {usersDto.Email} se encuentra registrado.", StatusCode = System.Net.HttpStatusCode.BadRequest };
 
+
+                //create user to save in database
                 User user = new()
                 {
                     FullName = usersDto.Name!,
@@ -32,9 +41,11 @@ namespace Application.Users
                     UserName = usersDto.Username!,
                 };
 
+
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
 
+                //Method to get JWT Token
                 object token = _tokenService.GenerateJWT(user);
 
                 return new ResponseDto<object>()
@@ -64,10 +75,17 @@ namespace Application.Users
 
         }
 
+
+        /// <summary>
+        /// Implementation Methot to Validate User
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         public async Task<ResponseDto<object>> ValidateUser(ValidateUserDto users)
         {
             try
             {
+                //Find first user by email address
                 User? userExist = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == users.Email);
 
@@ -75,7 +93,7 @@ namespace Application.Users
                     return new ResponseDto<object>()
                     { IsSuccess = false, Message = $"El correo {users.Email} no se encuentra registrado.", StatusCode = System.Net.HttpStatusCode.BadRequest };
 
-
+                //Verify password using Bcrypt
                 if (!BCrypt.Net.BCrypt.Verify(users.Password, userExist?.Password))
                     return new ResponseDto<object>()
                     { IsSuccess = false, Message = $"La Contraseña suministrada no es la correcta.", StatusCode = System.Net.HttpStatusCode.BadRequest };

@@ -16,10 +16,20 @@ namespace API.Controllers
         private readonly IManageUser _manageUser = manageUser;
 
         /// <summary>
-        /// Endpoint To Create New User
+        /// Create New User
         /// </summary>
-        /// <param name="users"></param>
+        /// <param name="Url"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// Ejemplo de información del usuario:
+        /// {
+        ///   "name": "Yorestarling Mejia", 
+        ///   "username": "yorestarling",
+        ///   "email": "Yorestarlingdev@hotmail.com", 
+        ///   "password": "Aleatorio*1324" 
+        /// }
+        /// </remarks>
+
         [HttpPost("CreateUser")]
         public async Task<ActionResult<ResponseDto<object>>> CreateUserAsync([FromBody] UsersDto users)
         => HttpStatusResponseUtils.HttpResponse(await _manageUser.CreateUser(users));

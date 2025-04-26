@@ -23,7 +23,19 @@ namespace API.Controllers
         /// <returns></returns>
         [HttpGet("ReadAnyEndpoint")]
         [Authorize]
-        public async Task<ActionResult<ResponseDto<object>>> ReadAnyEndpointAsync([FromQuery] string? Url)
-        => HttpStatusResponseUtils.HttpResponse(await _manageClient.ReadClientJsonAsync(Url));
+        public async Task<ActionResult<ResponseDto<object>>> ReadAnyEndpointAsync()
+        => HttpStatusResponseUtils.HttpResponse(await _manageClient.ReadClientJsonAsync());
+
+
+
+        /// <summary>
+        /// Post Data to External Url
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <returns></returns>
+        [HttpPost("SendDataToExternalURL")]
+        [Authorize]
+        public async Task<ActionResult<ResponseDto<object>>> PostDataToExternalURLAsync([FromBody] JsonHolderDto? request)
+        => HttpStatusResponseUtils.HttpResponse(await _manageClient.ClientJsonAsync(request));
     }
 }

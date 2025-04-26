@@ -10,6 +10,7 @@ namespace Common.AppSettingsConfig
     {
         public JWTConfigurations? JWTConfigurations { get; set; }
         public RegularExpression? RegularExpression { get; set; }
+        public ExternalURL? ExternalURL { get; set; }
     }
 
     public class JWTConfigurations
@@ -23,6 +24,11 @@ namespace Common.AppSettingsConfig
     {
         public string? Email { get; set; }
         public string? Password { get; set; }
+    }
+
+    public class ExternalURL
+    {
+        public string? JsonHolder { get; set; }
     }
 
 }

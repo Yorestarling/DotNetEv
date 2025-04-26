@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "b88c8648-733b-438a-bb3b-3138e0d44bcb",
+		"name": "DontNetEv",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29817211"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Yorestarling Mejia\", //Nombre de la persona que se estara creando\r\n  \"username\": \"yorestarling\", // Usuario\r\n  \"email\": \"Yorestarlingdev@hotmail.com\", // Correo Electronico\r\n  \"password\": \"Yore1234*\" // Contraseña\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44367/api/CreateUser",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44367",
+					"path": [
+						"api",
+						"CreateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoieW9yZXN0YXJsaW5nIiwidW5pcXVlX25hbWUiOiJ5b3Jlc3RhcmxpbmciLCJlbWFpbCI6IllvcmVzdGFybGluZ2RldkBob3RtYWlsLmNvbSIsIm5iZiI6MTc0NTY0NjIyMCwiZXhwIjoxNzQ1NjYwNjIwLCJpYXQiOjE3NDU2NDYyMjB9.dfG-HEocBR4VpSYLWPSTuksjkdw6t65vAXc2qpskx00",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"Yorestarlingdev@hotmail.com\", //Correo Electronico\r\n  \"password\": \"Yore454534*\" // Contraseña\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44367/api/ValidateUser",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44367",
+					"path": [
+						"api",
+						"ValidateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Data To External URL",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoieW9yZXN0YXJsaW5nIiwidW5pcXVlX25hbWUiOiJ5b3Jlc3RhcmxpbmciLCJlbWFpbCI6IllvcmVzdGFybGluZ2RldkBob3RtYWlsLmNvbSIsIm5iZiI6MTc0NTYzNzU3MiwiZXhwIjoxNzQ1NjUxOTcyLCJpYXQiOjE3NDU2Mzc1NzJ9.rx73qths50EodoH0qOwnktlibA2a6DWym4pgR3jxA0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 35, //Id del usuario\r\n  \"title\": \"Validacion del envío\", // Título del mensaje\r\n  \"body\": \"Texto completo de una validación del envío\" // Cuerpo del mensaje\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44367/api/Client/SendDataToExternalURL",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44367",
+					"path": [
+						"api",
+						"Client",
+						"SendDataToExternalURL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Url Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoieW9yZXN0YXJsaW5nIiwidW5pcXVlX25hbWUiOiJ5b3Jlc3RhcmxpbmciLCJlbWFpbCI6IllvcmVzdGFybGluZ2RldkBob3RtYWlsLmNvbSIsIm5iZiI6MTc0NTYzNzU3MiwiZXhwIjoxNzQ1NjUxOTcyLCJpYXQiOjE3NDU2Mzc1NzJ9.rx73qths50EodoH0qOwnktlibA2a6DWym4pgR3jxA0A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44367/api/Client/ReadAnyEndpoint",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44367",
+					"path": [
+						"api",
+						"Client",
+						"ReadAnyEndpoint"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
